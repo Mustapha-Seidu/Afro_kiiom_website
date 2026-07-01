@@ -5,25 +5,25 @@ const pillars = [
     icon: <Eye size={24} />,
     title: "Our Vision",
     body:
-      "To be the foremost African technology company that designs, manufactures, and delivers indigenous computer hardware and world-class software — putting Africa at the centre of the global technology map.",
+      "To be a technology company that designs, manufactures, and delivers indigenous computer hardware and world-class software — competing on the global stage.",
   },
   {
     icon: <Target size={24} />,
     title: "Our Mission",
     body:
-      "To design Africa's first computer hardware from scratch, develop software that solves real-world African problems, and nurture a generation of innovators who believe Africa can lead in technology.",
+      "To design and build computer hardware from scratch, develop software that solves real-world problems, and nurture a generation of engineers who believe in doing hard, meaningful work.",
   },
   {
     icon: <Lightbulb size={24} />,
     title: "Our Goals",
     body:
-      "Launch impactful software products, complete research into processor and hardware architecture, attract global investment, and create an ecosystem where African talent and ideas thrive.",
+      "Launch impactful software products, complete research into processor and hardware architecture, attract global investment, and build an ecosystem where talented people can do their best work.",
   },
   {
     icon: <Globe size={24} />,
     title: "Our Aims",
     body:
-      "Build viable indigenous hardware and software alternatives; contribute to a growing ecosystem where African engineers, designers, and scientists can do meaningful, world-class work.",
+      "Build viable indigenous hardware and software; contribute to a growing ecosystem where engineers, designers, and scientists can do meaningful, world-class work.",
   },
 ];
 
@@ -65,7 +65,7 @@ export default function VisionSection() {
             }}
           >
             We are a technology company doing the hard work of building software products and
-            conducting research into hardware design — because we believe African engineers belong
+            conducting research into hardware design — because we believe our engineers belong
             at the cutting edge of the industry.
           </p>
         </div>
@@ -159,7 +159,7 @@ export default function VisionSection() {
               fontStyle: "italic",
             }}
           >
-            &ldquo;We believe African engineers can design world-class technology — and we are doing the work to demonstrate it.&rdquo;
+            &ldquo;We believe our engineers can design world-class technology — and we are doing the work to demonstrate it.&rdquo;
           </p>
           <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "13px", marginTop: "16px" }}>— Afro Kiiom Ltd</p>
         </div>

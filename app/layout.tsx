@@ -9,13 +9,13 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Kiiom — Innovation Rooted in Africa | Afro Kiiom Ltd",
+  title: "Kiiom — Technology Company | Afro Kiiom Ltd",
   description:
-    "Afro Kiiom Ltd is building Africa's first indigenous computer hardware from scratch, alongside world-class software products. Join us, invest, or collaborate.",
-  keywords: ["African tech", "hardware innovation", "software", "Africa startup", "Kiiom", "Afro Kiiom"],
+    "Afro Kiiom Ltd builds world-class software products and conducts research toward designing its own computer hardware from the ground up. Based in Ghana.",
+  keywords: ["hardware innovation", "software", "Ghana tech", "Kiiom", "Afro Kiiom", "indigenous CPU"],
   openGraph: {
-    title: "Kiiom — Innovation Rooted in Africa",
-    description: "Building Africa's first computer hardware from scratch and world-class software.",
+    title: "Kiiom | Afro Kiiom Ltd",
+    description: "Building our first indigenous computer hardware from scratch and world-class software products.",
     type: "website",
   },
 };

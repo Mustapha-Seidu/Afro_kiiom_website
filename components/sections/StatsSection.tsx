@@ -1,7 +1,7 @@
 const stats = [
   { value: "1", label: "Product Launched", sub: "Booking System" },
   { value: "3", label: "Team Members", sub: "And growing" },
-  { value: "1st", label: "African CPU", sub: "In development" },
+  { value: "1st", label: "Kiiom CPU", sub: "In development" },
   { value: "2+", label: "Domains", sub: "Software & Hardware" },
 ];
 

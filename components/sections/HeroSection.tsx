@@ -97,7 +97,7 @@ export default function HeroSection() {
           }}
         >
           Afro Kiiom Ltd builds <strong style={{ color: "rgba(255,255,255,0.95)" }}>practical software products</strong> and
-          conducts research toward designing <strong style={{ color: "rgba(255,255,255,0.95)" }}>computer hardware engineered in Africa</strong> from the ground up —
+          conducts research toward designing <strong style={{ color: "rgba(255,255,255,0.95)" }}>its own computer hardware</strong> from the ground up —
           with the ambition to compete on the global stage.
         </p>
 

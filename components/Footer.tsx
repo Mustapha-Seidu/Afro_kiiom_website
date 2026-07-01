@@ -38,11 +38,11 @@ export default function Footer() {
               </div>
               <div>
                 <div style={{ fontWeight: 800, fontSize: "18px", color: "#ffffff" }}>Afro Kiiom Ltd</div>
-                <div style={{ fontSize: "11px", color: "#9ca3af", marginTop: "2px" }}>Innovation Rooted in Africa</div>
+                <div style={{ fontSize: "11px", color: "#9ca3af", marginTop: "2px" }}>Technology Company · Ghana</div>
               </div>
             </div>
             <p style={{ color: "#9ca3af", fontSize: "14px", lineHeight: "1.7", maxWidth: "260px" }}>
-              Building Africa&apos;s first computer hardware from scratch — pioneering the future of technology on the continent.
+              Building our first indigenous computer hardware from scratch — and world-class software products alongside it.
             </p>
             <div style={{ display: "flex", gap: "12px", marginTop: "20px" }}>
               {[
@@ -123,7 +123,7 @@ export default function Footer() {
               </div>
               <div style={{ marginTop: "8px", padding: "12px", backgroundColor: "#1f2937", borderRadius: "8px", border: "1px solid #374151" }}>
                 <div style={{ fontSize: "12px", color: "#a5b4fc", fontWeight: 600 }}>Hardware Research</div>
-                <div style={{ fontSize: "11px", color: "#6b7280", marginTop: "4px" }}>Africa&apos;s first indigenous CPU — In development</div>
+                <div style={{ fontSize: "11px", color: "#6b7280", marginTop: "4px" }}>Kiiom CPU Gen 1 — In development</div>
               </div>
             </div>
           </div>
@@ -174,7 +174,7 @@ export default function Footer() {
             &copy; {year} Afro Kiiom Ltd. All rights reserved.
           </p>
           <p style={{ color: "#4b5563", fontSize: "12px", margin: 0 }}>
-            Building tomorrow&apos;s technology, today — from Africa to the world.
+            Building tomorrow&apos;s technology, today.
           </p>
         </div>
       </div>

@@ -6,13 +6,13 @@ import { TrendingUp, Shield, Globe, Handshake, ArrowRight, Star } from "lucide-r
 const reasons = [
   {
     icon: <Globe size={22} />,
-    title: "Untapped Market",
-    desc: "Africa's tech market is one of the fastest growing in the world, with over 1.4 billion people and rising digital adoption.",
+    title: "High-Growth Market",
+    desc: "The markets we operate in are among the fastest growing in the world, with over 1.4 billion people and rising digital adoption.",
   },
   {
     icon: <Star size={22} />,
     title: "First-Mover Advantage",
-    desc: "We are among the earliest companies to pursue hardware design in Africa — early-stage research with significant room to grow.",
+    desc: "We are among the earliest companies to pursue indigenous hardware design in this space — early-stage research with significant room to grow.",
   },
   {
     icon: <TrendingUp size={22} />,
@@ -27,7 +27,7 @@ const reasons = [
   {
     icon: <Handshake size={22} />,
     title: "Strategic Partnership",
-    desc: "Investors don't just put in capital — they join our advisory circle and help shape the direction of African tech.",
+    desc: "Investors don't just put in capital — they join our advisory circle and help shape the direction of our work.",
   },
 ];
 
@@ -83,10 +83,10 @@ export default function InvestorsSection() {
             className="section-heading section-heading-white"
             style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, color: "#ffffff", margin: "0 auto" }}
           >
-            Invest in Africa&apos;s Technology Future
+            Invest in Kiiom&apos;s Technology Future
           </h2>
           <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "17px", maxWidth: "600px", margin: "20px auto 0", lineHeight: 1.7 }}>
-            We are looking for investors who take a long-term view on African technology.
+            We are looking for investors who take a long-term view on technology.
             If our work resonates with you, we would like to speak with you.
           </p>
         </div>
@@ -124,7 +124,7 @@ export default function InvestorsSection() {
               We Are Calling for Investors
             </h3>
             <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "14px", lineHeight: 1.7, margin: 0 }}>
-              Afro Kiiom Ltd is raising capital to accelerate hardware research, grow our software product suite, and hire Africa&apos;s
+              Afro Kiiom Ltd is raising capital to accelerate hardware research, grow our software product suite, and hire the
               best engineers. If you believe in our vision — let&apos;s talk.
             </p>
           </div>

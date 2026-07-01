@@ -22,7 +22,7 @@ const phases = [
   {
     num: "04",
     title: "Mass Production & Ecosystem",
-    desc: "Manufacturing at scale, building the software ecosystem around the hardware, and making it available to African institutions first.",
+    desc: "Manufacturing at scale, building the software ecosystem around the hardware, and making it available to local institutions first.",
     status: "Future",
   },
 ];
