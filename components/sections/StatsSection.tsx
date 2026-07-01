@@ -1,6 +1,6 @@
 const stats = [
   { value: "1", label: "Product Launched", sub: "Booking System" },
-  { value: "∞", label: "Vision Horizon", sub: "Long-term mission" },
+  { value: "3", label: "Team Members", sub: "And growing" },
   { value: "1st", label: "African CPU", sub: "In development" },
   { value: "2+", label: "Domains", sub: "Software & Hardware" },
 ];
