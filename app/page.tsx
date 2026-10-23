@@ -13,7 +13,7 @@ export default function Home() {
       <StatsSection />
       <VisionSection />
       <ProjectsSection />
-      <HardwareSection />
+      {/* <HardwareSection /> */}
       <InvestorsSection />
       <JoinSection />
     </>

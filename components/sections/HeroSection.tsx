@@ -7,7 +7,7 @@ export default function HeroSection() {
       id="hero"
       className="hero-pad"
       style={{
-        backgroundColor: "#03045e",
+        backgroundColor: "var(--hero-background-color, #003049)",
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",

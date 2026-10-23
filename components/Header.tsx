@@ -82,7 +82,7 @@ export default function Header() {
             K
           </div>
           <span style={{ color: "#ffffff", fontWeight: 800, fontSize: "22px", letterSpacing: "1px" }}>
-            Kiiom
+            Afro Kiiom
           </span>
         </Link>
 

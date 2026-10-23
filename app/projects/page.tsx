@@ -22,8 +22,8 @@ const projects = [
       "Mobile-responsive design",
       "Secure payment integration",
     ],
-    tech: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind CSS", "Node.js", "Express.js", "Mongodb", "Redis"],
-    link: "https://kb.kiiom.com",
+    tech: ["Nodejs", "Express", "Next.js", "TypeScript", "Mongodb", "Redis", "AWS cloud"],
+    link: "https://booking.kiiom.com",
   },
 ];
 
@@ -44,8 +44,6 @@ const research = [
 const future = [
   { name: "Fleet Management System", desc: "Track and manage vehicle fleets in real time.", eta: "2025" },
   { name: "Kiiom ERP Suite", desc: "Enterprise resource planning for small and medium businesses.", eta: "2026" },
-  { name: "Kiiom AI Assistant", desc: "Context-aware AI assistant with support for local and indigenous languages.", eta: "2026" },
-  { name: "Kiiom OS", desc: "A lightweight operating system optimised for the Kiiom CPU.", eta: "TBD" },
 ];
 
 export default function ProjectsPage() {

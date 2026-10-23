@@ -5,6 +5,7 @@ const projects = [
   {
     name: "Smart Booking System",
     status: "Live",
+    link: "https://booking.kiiom.com",
     statusColor: "#22c55e",
     statusBg: "#f0fdf4",
     category: "Software",
@@ -12,14 +13,12 @@ const projects = [
       "A comprehensive booking and scheduling platform designed to streamline appointment management for businesses of all sizes. Features real-time availability, automated reminders, and an intuitive admin panel.",
     features: ["Real-time scheduling", "Admin dashboard", "Automated notifications", "Multi-service support"],
     icon: <Calendar size={28} />,
-    tech: ["Next.js", "TypeScript", "PostgreSQL"],
+    tech: ["Nodejs", "Express", "Next.js", "TypeScript", "Mongodb", "AWS Cloud"],
   },
 ];
 
 const upcoming = [
   { name: "Fleet Management System", category: "Software", eta: "2025" },
-  { name: "Kiiom ERP Suite", category: "Software", eta: "2026" },
-  { name: "Kiiom CPU — Gen 1", category: "Hardware", eta: "TBD" },
 ];
 
 export default function ProjectsSection() {
