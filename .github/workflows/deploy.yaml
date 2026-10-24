@@ -1,0 +1,16 @@
+name: Deploy to AWS EC2 instance
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: download code to the runner
+        uses: actions/checkout@v7
+
+      - name: setup nodejs 
+        uses: actions/setup-nodejs@v7
+        with:
+          node-version: '24'
