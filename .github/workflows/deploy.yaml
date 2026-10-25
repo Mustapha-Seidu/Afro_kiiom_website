@@ -17,7 +17,7 @@ env:
   CLIENT_IMAGE: ghcr.io/mustapha-seidu/kiiom-website
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: download code to the runner
@@ -44,11 +44,103 @@ jobs:
         with:
           context: .
           push: true 
-          platform: linux/amd64
+          platforms: linux/amd64
           build-args: NEXT_PUBLIC_SITE_URL=${{ vars.NEXT_PUBLIC_SITE_URL }}
           tags: | 
             ${{ env.CLIENT_IMAGE }}:production
             ${{ env.CLIENT_IMAGE }}:${{ github.sha }}
 
-        
-          
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      packages: read
+    env:
+      EC2_HOST: ${{ secrets.EC2_HOST }}
+      EC2_USER: ${{ secrets.EC2_USER }}
+      EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+      # Trusted known_hosts entry, obtained from the instance through a trusted channel.
+      EC2_KNOWN_HOSTS: ${{ secrets.EC2_KNOWN_HOSTS }}
+      GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GHCR_USER: ${{ github.actor }}
+      IMAGE: ${{ env.CLIENT_IMAGE }}:${{ github.sha }}
+      # Nginx on the host proxies to this loopback-only port.
+      HOST_PORT: ${{ vars.EC2_HOST_PORT || '3000' }}
+    steps:
+      - name: Deploy container to EC2
+        shell: bash
+        run: |
+          set -euo pipefail
+          : "${EC2_HOST:?Set EC2_HOST secret}"
+          : "${EC2_USER:?Set EC2_USER secret}"
+          : "${EC2_SSH_KEY:?Set EC2_SSH_KEY secret}"
+          : "${EC2_KNOWN_HOSTS:?Set EC2_KNOWN_HOSTS secret}"
+          [[ "$HOST_PORT" =~ ^[0-9]+$ ]] && (( HOST_PORT >= 1 && HOST_PORT <= 65535 ))
+          install -m 700 -d "$HOME/.ssh"
+          printf '%s\n' "$EC2_SSH_KEY" > "$HOME/.ssh/ec2_key"
+          printf '%s\n' "$EC2_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/ec2_key" "$HOME/.ssh/known_hosts"
+          trap 'rm -f "$HOME/.ssh/ec2_key"' EXIT
+
+          # Quote values for the remote Bash process; never interpolate secrets into code.
+          {
+            printf 'GHCR_TOKEN=%q\n' "$GHCR_TOKEN"
+            printf 'GHCR_USER=%q\n' "$GHCR_USER"
+            printf 'IMAGE=%q\n' "$IMAGE"
+            printf 'HOST_PORT=%q\n' "$HOST_PORT"
+            cat <<'DEPLOY_SCRIPT'
+          set -euo pipefail
+          export DOCKER_CONFIG
+          DOCKER_CONFIG=$(mktemp -d)
+          trap 'rm -rf "$DOCKER_CONFIG"' EXIT
+          printf '%s' "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USER" --password-stdin
+          unset GHCR_TOKEN
+          command -v curl >/dev/null
+          docker pull "$IMAGE"
+
+          container=kiiom-website
+          previous=kiiom-website-previous
+          # Optional runtime secrets (SMTP, admin credentials, etc.) managed on EC2.
+          env_args=()
+          if [[ -f /etc/kiiom-website.env ]]; then
+            env_args=(--env-file /etc/kiiom-website.env)
+          fi
+          docker rm -f "$previous" 2>/dev/null || true
+          if docker container inspect "$container" >/dev/null 2>&1; then
+            docker stop "$container"
+            docker rename "$container" "$previous"
+          fi
+          rollback() {
+            docker logs --tail 50 "$container" || true
+            docker rm -f "$container" || true
+            if docker container inspect "$previous" >/dev/null 2>&1; then
+              docker rename "$previous" "$container"
+              docker start "$container"
+            fi
+          }
+          trap 'rollback' ERR
+          docker run -d --name "$container" --restart unless-stopped \
+            --publish "127.0.0.1:$HOST_PORT:3000" "${env_args[@]}" "$IMAGE"
+          healthy=false
+          for attempt in {1..30}; do
+            if curl --fail --silent --show-error --max-time 3 \
+              "http://127.0.0.1:$HOST_PORT/" >/dev/null; then
+              healthy=true
+              break
+            fi
+            sleep 2
+          done
+          if [[ "$healthy" != true ]]; then
+            echo "New container failed its HTTP health check; restoring previous container."
+            false
+          fi
+          trap - ERR
+          docker rm -f "$previous" 2>/dev/null || true
+          echo "Deployed $IMAGE at http://127.0.0.1:$HOST_PORT (Nginx upstream)"
+          DEPLOY_SCRIPT
+          } | ssh -i "$HOME/.ssh/ec2_key" \
+            -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
+            "$EC2_USER@$EC2_HOST" 'bash -se'

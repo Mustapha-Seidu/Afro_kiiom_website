@@ -1,6 +1,40 @@
 This is [Afro Kiiom Ltd website](https://kiiom.com) official website
 
 
+## EC2 deployment behind Nginx
+
+The GitHub Actions workflow builds the Docker image and deploys it over SSH on
+pushes to `main` or manual runs from `main`. Docker publishes the application at
+`127.0.0.1:3000`, while the installed host Nginx serves public traffic on 80/443.
+The workflow checks the published upstream and restores the previous container
+if startup fails. Container replacement has a brief interruption.
+
+Configure repository secrets `EC2_HOST`, `EC2_USER`, `EC2_SSH_KEY`, and
+`EC2_KNOWN_HOSTS` (a verified SSH known_hosts entry). The EC2 SSH user needs
+Docker access, Bash, and curl; the instance must be x86-64 for the current image.
+Optional application settings can be stored in `/etc/kiiom-website.env`, readable
+by that user. Set repository variable `NEXT_PUBLIC_SITE_URL` to the public site
+URL (for example, `https://kiiom.com`) before building.
+
+Use [deploy/nginx.conf](deploy/nginx.conf) as the Nginx configuration example.
+If your site already has an HTTPS server block, merge the example's `location /`
+settings into that block, retaining its certificates and HTTP-to-HTTPS redirect.
+Do not add a duplicate server block for an already configured domain.
+For a new HTTP site, copy the example to a directory included by your Nginx
+configuration, commonly `/etc/nginx/conf.d/kiiom-website.conf`.
+Validate and reload after editing the EC2 configuration:
+
+```bash
+sudo nginx -t && sudo systemctl reload nginx
+curl --fail http://127.0.0.1:3000/
+```
+
+If repository variable `EC2_HOST_PORT` was previously set to `80`, remove it or
+change it to `3000`. For any other port, update Nginx's `proxy_pass` to match.
+Allow public HTTP/HTTPS in the EC2 security group and SSH from your deployment
+runner; the application port does not need a public inbound rule. Deployments
+update only the container, so Nginx does not need reloading on each release.
+
 <!-- This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
