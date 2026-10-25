@@ -3,6 +3,15 @@ on:
   workflow_dispatch:
   push:
     branches: ["main"]
+
+permissions:
+  contents: read 
+  packages: write
+
+concurrency:
+  group: ec2-production
+  cancel-in-progress: false
+
 env:
   REGISTRY: ghcr.io
   CLIENT_IMAGE: ghcr.io/mustapha-seidu/kiiom-website
