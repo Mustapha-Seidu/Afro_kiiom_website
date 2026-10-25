@@ -79,9 +79,9 @@ export async function POST(req: NextRequest) {
           </div>
           <div style="background: #ffffff; padding: 24px; border-radius: 8px; border: 1px solid #e5e7eb;">
             <table style="width: 100%; border-collapse: collapse;">
-              <tr><td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #374151; width: 120px;">Name</td><td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #1f2937;">${name}</td></tr>
-              <tr><td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #374151;">Email</td><td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6;"><a href="mailto:${email}" style="color: #03045e;">${email}</a></td></tr>
-              <tr><td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #374151;">Subject</td><td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #1f2937;">${subject}</td></tr>
+              <tr><td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #374151; width: 120px;">Name:</td><td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #1f2937;">${name}</td></tr>
+              <tr><td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #374151;">Email:</td><td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6;"><a href="mailto:${email}" style="color: #03045e;">${email}</a></td></tr>
+              <tr><td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6; font-weight: 600; color: #374151;">Subject:</td><td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #1f2937;">${subject}</td></tr>
             </table>
             <div style="margin-top: 20px;">
               <p style="font-weight: 600; color: #374151; margin-bottom: 8px;">Message:</p>
