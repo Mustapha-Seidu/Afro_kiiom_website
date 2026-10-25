@@ -66,7 +66,7 @@ jobs:
       EC2_KNOWN_HOSTS: ${{ secrets.EC2_KNOWN_HOSTS }}
       GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GHCR_USER: ${{ github.actor }}
-      IMAGE: ${{ env.CLIENT_IMAGE }}:${{ github.sha }}
+      IMAGE: ghcr.io/mustapha-seidu/kiiom-website:${{ github.sha }}
       # Nginx on the host proxies to this loopback-only port.
       HOST_PORT: ${{ vars.EC2_HOST_PORT || '3000' }}
     steps:
