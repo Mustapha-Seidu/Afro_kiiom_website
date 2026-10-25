@@ -29,3 +29,13 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: build and push docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true 
+          platform: linux/amd64
+          build-args: NEXT_PUBLIC_SITE_URL=${{ vars.NEXT_PUBLIC_SITE_URL }}
+        
+          
