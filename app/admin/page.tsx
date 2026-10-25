@@ -81,6 +81,7 @@ export default function AdminDashboardPage() {
               <a
                 key={i}
                 href={action.href}
+                className="hover:bg-[#f9fafb]"
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -91,8 +92,6 @@ export default function AdminDashboardPage() {
                   transition: "background-color 0.2s",
                   marginBottom: "4px",
                 }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = "#f9fafb")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = "transparent")}
               >
                 <span style={{ fontSize: "14px", fontWeight: 600, color: "#03045e" }}>{action.label}</span>
                 <span style={{ fontSize: "12px", color: "#6b7280" }}>{action.desc}</span>

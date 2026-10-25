@@ -1,5 +1,61 @@
 import { NextRequest, NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2"
+
+type mailProps = {
+  subject: string,
+  htmlBody: string,
+  textBody: string
+}
+
+function requireEnv(name: string){
+  const data = process.env[name];
+  if(!data || data.length < 1){
+    throw new Error(`Missing env:${[name]} variable`);
+  }
+  return data;
+}
+
+const sesClient = new SESv2Client({
+  region: requireEnv("AWS_REGION") || 'us-east-1',
+  credentials: {
+    accessKeyId: requireEnv("AWS_ACCESS_KEY"),
+    secretAccessKey: requireEnv("AWS_SECRET_KEY")
+  }
+})
+
+async function sendEmail({ subject, htmlBody, textBody }: mailProps){
+   const params = {
+    FromEmailAddress: requireEnv("FROM_EMAIL"),
+    Destination: {
+      ToAddresses: [requireEnv("TO_EMAIL")],
+    },
+    Content: {
+      Simple: {
+        Subject: {
+          Data: subject,
+        },
+        Body: {
+          Text: {
+            Data: textBody,
+          },
+          Html: {
+            Data: htmlBody,
+          },
+        }
+      }
+    }
+  };
+
+  try{
+    const command = new SendEmailCommand(params);
+    const response = await sesClient.send(command);
+    console.log(response.MessageId)
+    return 'Message send successfully'
+  } catch(err: any){
+    console.log(err)
+    throw new Error(err.message || 'Failed to send email')
+  }
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -15,22 +71,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid email address." }, { status: 400 });
     }
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || "smtp.gmail.com",
-      port: parseInt(process.env.SMTP_PORT || "587"),
-      secure: false,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-
-    await transporter.sendMail({
-      from: `"Kiiom Website" <${process.env.SMTP_USER}>`,
-      to: process.env.CONTACT_EMAIL || "benjaminazuuri@gmail.com",
-      replyTo: email,
-      subject: `[Kiiom] ${subject} — from ${name}`,
-      html: `
+    function htmlBody(){
+      return `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f9fafb; padding: 32px; border-radius: 12px;">
           <div style="background: #03045e; padding: 24px; border-radius: 8px; margin-bottom: 24px; text-align: center;">
             <h2 style="color: #ffffff; margin: 0; font-size: 20px;">New Message from Kiiom Website</h2>
@@ -50,10 +92,29 @@ export async function POST(req: NextRequest) {
             This message was sent via the Kiiom website contact form.
           </p>
         </div>
-      `,
-    });
+      `
+    }
 
-    return NextResponse.json({ success: true });
+    const textBody = `
+      A message from a client
+
+      Name: ${name}
+      email: ${email}
+      subject: ${subject}
+      message:
+      ${message}
+
+      Best regards
+      Afro Kiiom Team
+    `
+
+    const response = await sendEmail({
+      subject,
+      htmlBody: htmlBody(),
+      textBody
+    })
+
+    return NextResponse.json({ success: true, message: response });
   } catch (error) {
     console.error("Contact form error:", error);
     return NextResponse.json(

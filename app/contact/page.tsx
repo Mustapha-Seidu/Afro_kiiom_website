@@ -285,8 +285,8 @@ export default function ContactPage() {
           <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
             {[
               { icon: <Mail size={20} />, label: "Email", value: "info@kiiom.com", href: "mailto:info@kiiom.com" },
-              { icon: <Phone size={20} />, label: "Phone", value: "+233 (0) — Available Soon", href: "#" },
-              { icon: <MapPin size={20} />, label: "Location", value: "Ghana, West Africa", href: "#" },
+              { icon: <Phone size={20} />, label: "Phone", value: "+233 (0)55 078 6360", href: "#" },
+              { icon: <MapPin size={20} />, label: "Location", value: "Guinea Bissau Loop, Accra, Greater Accra Region, Ghana", href: "#" },
             ].map((item, i) => (
               <div
                 key={i}
