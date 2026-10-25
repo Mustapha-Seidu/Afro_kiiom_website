@@ -45,7 +45,15 @@ jobs:
           context: .
           push: true 
           platforms: linux/amd64
-          build-args: NEXT_PUBLIC_SITE_URL=${{ vars.NEXT_PUBLIC_SITE_URL }}
+          build-args: |
+            NEXT_PUBLIC_SITE_URL=${{ vars.NEXT_PUBLIC_SITE_URL }}
+            AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}
+            AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }}
+            S3_BUCKET=${{ vars.S3_BUCKET }}
+            AWS_REGION=${{ vars.AWS_REGION }}
+            AWS_USER=${{ vars.AWS_USER }}
+            FROM_EMAIL=${{ vars.FROM_EMAIL }}
+            TO_EMAIL=${{ vars.TO_EMAIL }}
           tags: | 
             ${{ env.CLIENT_IMAGE }}:production
             ${{ env.CLIENT_IMAGE }}:${{ github.sha }}

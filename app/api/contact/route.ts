@@ -10,7 +10,7 @@ type mailProps = {
 function requireEnv(name: string){
   const data = process.env[name];
   if(!data || data.length < 1){
-    throw new Error(`Missing env:${[name]} variable`);
+    throw new Error(`Missing [${name}] env variable`);
   }
   return data;
 }
