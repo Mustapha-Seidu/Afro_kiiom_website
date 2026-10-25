@@ -5,7 +5,7 @@ on:
     branches: ["main"]
 env:
   REGISTRY: ghcr.io
-  FRONTEND_IMAGE: ghcr.io/mustapha-seidu/kiiom-website
+  CLIENT_IMAGE: ghcr.io/mustapha-seidu/kiiom-website
 
 jobs:
   build-and-deploy:
@@ -37,5 +37,9 @@ jobs:
           push: true 
           platform: linux/amd64
           build-args: NEXT_PUBLIC_SITE_URL=${{ vars.NEXT_PUBLIC_SITE_URL }}
+          tags: | 
+            ${{ env.CLIENT_IMAGE }}:production
+            ${{ env.CLIENT_IMAGE }}:${{ github.sha }}
+
         
           
